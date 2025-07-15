@@ -137,7 +137,7 @@ class TestCalculateStatistics:
     def test_calculate_statistics_valid_data(self, sample_data_models):
         """Test calculating statistics with valid data."""
         stats = calculate_statistics(sample_data_models)
-        
+
         assert stats["count"] == 3
         assert stats["total"] == 165.5
         assert stats["average"] == pytest.approx(55.16666666666667, rel=1e-9)
