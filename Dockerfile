@@ -1,11 +1,14 @@
 # Use Python 3.11 slim image
-FROM python:3.11-slim
+FROM python:3.11-slim-bullseye
 
-# Set environment variables
-ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PIP_NO_CACHE_DIR=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1
+# Ensure all packages are up to date
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+    build-essential \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install system dependencies
+# (Moved to above with upgrade step)
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
