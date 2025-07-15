@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Alpha",
+    "value": 42,
+    "tags": ["important", "first"],
+    "metadata": {
+      "category": "test",
+      "priority": 1
+    }
+  },
+  {
+    "name": "Beta",
+    "value": 23.5,
+    "tags": ["second"],
+    "metadata": {
+      "category": "sample",
+      "priority": 2
+    }
+  },
+  {
+    "name": "Gamma",
+    "value": 100,
+    "tags": ["important", "large"],
+    "metadata": {
+      "category": "test",
+      "priority": 3
+    }
+  }
+]
