@@ -137,7 +137,7 @@ class TestCalculateStatistics:
     def test_calculate_statistics_valid_data(self, sample_data_models):
         """Test calculating statistics with valid data."""
         stats = calculate_statistics(sample_data_models)
-        
+
         expected_stats = {
             "count": 3,
             "total": 165.5,
@@ -145,13 +145,13 @@ class TestCalculateStatistics:
             "min": 23.5,
             "max": 100,
         }
-        
+
         assert stats == expected_stats
 
     def test_calculate_statistics_empty_data(self):
         """Test calculating statistics with empty data."""
         stats = calculate_statistics([])
-        
+
         expected_stats = {
             "count": 0,
             "total": 0,
@@ -159,14 +159,14 @@ class TestCalculateStatistics:
             "min": 0,
             "max": 0,
         }
-        
+
         assert stats == expected_stats
 
     def test_calculate_statistics_single_item(self):
         """Test calculating statistics with single item."""
         single_item = [DataModel(name="Single", value=42)]
         stats = calculate_statistics(single_item)
-        
+
         expected_stats = {
             "count": 1,
             "total": 42,
@@ -174,5 +174,5 @@ class TestCalculateStatistics:
             "min": 42,
             "max": 42,
         }
-        
+
         assert stats == expected_stats

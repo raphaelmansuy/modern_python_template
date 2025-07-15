@@ -40,11 +40,11 @@ class TestCLI:
             {"name": "Alpha", "value": 42, "tags": ["important"]},
             {"name": "Beta", "value": 23.5, "tags": ["second"]},
         ]
-        
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
             json.dump(sample_data, f)
             temp_path = Path(f.name)
-        
+
         try:
             runner = CliRunner()
             result = runner.invoke(cli, ["process", str(temp_path)])
@@ -59,11 +59,11 @@ class TestCLI:
             {"name": "Alpha", "value": 42},
             {"name": "Beta", "value": 23.5},
         ]
-        
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
             json.dump(sample_data, f)
             temp_path = Path(f.name)
-        
+
         try:
             runner = CliRunner()
             result = runner.invoke(cli, ["process", str(temp_path), "--stats"])
@@ -78,25 +78,24 @@ class TestCLI:
         sample_data = [
             {"name": "Alpha", "value": 42},
         ]
-        
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as input_file:
+
+        with tempfile.NamedTemporaryFile(
+            mode="w", suffix=".json", delete=False
+        ) as input_file:
             json.dump(sample_data, input_file)
             input_path = Path(input_file.name)
-        
-        with tempfile.NamedTemporaryFile(suffix='.json', delete=False) as output_file:
+
+        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as output_file:
             output_path = Path(output_file.name)
-        
+
         try:
             runner = CliRunner()
-            result = runner.invoke(cli, [
-                "process", 
-                str(input_path), 
-                "--output", 
-                str(output_path)
-            ])
+            result = runner.invoke(
+                cli, ["process", str(input_path), "--output", str(output_path)]
+            )
             assert result.exit_code == 0
             assert f"Results saved to {output_path}" in result.output
-            
+
             # Check that output file was created and contains expected data
             with output_path.open() as f:
                 output_data = json.load(f)
@@ -116,10 +115,10 @@ class TestCLI:
 
     def test_cli_process_invalid_json(self):
         """Test process command with invalid JSON."""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
             f.write("invalid json")
             temp_path = Path(f.name)
-        
+
         try:
             runner = CliRunner()
             result = runner.invoke(cli, ["process", str(temp_path)])
@@ -131,11 +130,11 @@ class TestCLI:
     def test_cli_process_invalid_data_format(self):
         """Test process command with invalid data format."""
         invalid_data = {"not": "a list"}
-        
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
             json.dump(invalid_data, f)
             temp_path = Path(f.name)
-        
+
         try:
             runner = CliRunner()
             result = runner.invoke(cli, ["process", str(temp_path)])

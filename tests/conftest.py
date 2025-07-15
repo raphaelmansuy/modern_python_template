@@ -1,6 +1,7 @@
 """Test configuration and fixtures."""
 
 import pytest
+
 from modern_python_template.core import DataModel
 
 
