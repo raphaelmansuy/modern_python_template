@@ -12,21 +12,21 @@ from modern_python_template.cli import cli
 class TestCLI:
     """Tests for the CLI functionality."""
 
-    def test_cli_hello_default(self):
+    def test_cli_hello_default(self) -> None:
         """Test hello command with default name."""
         runner = CliRunner()
         result = runner.invoke(cli, ["hello"])
         assert result.exit_code == 0
         assert "Hello, World!" in result.output
 
-    def test_cli_hello_with_name(self):
+    def test_cli_hello_with_name(self) -> None:
         """Test hello command with specific name."""
         runner = CliRunner()
         result = runner.invoke(cli, ["hello", "Alice"])
         assert result.exit_code == 0
         assert "Hello, Alice!" in result.output
 
-    def test_cli_demo(self):
+    def test_cli_demo(self) -> None:
         """Test demo command."""
         runner = CliRunner()
         result = runner.invoke(cli, ["demo"])
@@ -34,7 +34,7 @@ class TestCLI:
         assert "Modern Python Template Demo" in result.output
         assert "Statistics:" in result.output
 
-    def test_cli_process_valid_file(self):
+    def test_cli_process_valid_file(self) -> None:
         """Test process command with valid file."""
         sample_data = [
             {"name": "Alpha", "value": 42, "tags": ["important"]},
@@ -53,7 +53,7 @@ class TestCLI:
         finally:
             temp_path.unlink()
 
-    def test_cli_process_with_stats(self):
+    def test_cli_process_with_stats(self) -> None:
         """Test process command with statistics."""
         sample_data = [
             {"name": "Alpha", "value": 42},
@@ -73,7 +73,7 @@ class TestCLI:
         finally:
             temp_path.unlink()
 
-    def test_cli_process_with_output(self):
+    def test_cli_process_with_output(self) -> None:
         """Test process command with output file."""
         sample_data = [
             {"name": "Alpha", "value": 42},
@@ -108,13 +108,13 @@ class TestCLI:
             if output_path.exists():
                 output_path.unlink()
 
-    def test_cli_process_nonexistent_file(self):
+    def test_cli_process_nonexistent_file(self) -> None:
         """Test process command with non-existent file."""
         runner = CliRunner()
         result = runner.invoke(cli, ["process", "nonexistent.json"])
         assert result.exit_code != 0
 
-    def test_cli_process_invalid_json(self):
+    def test_cli_process_invalid_json(self) -> None:
         """Test process command with invalid JSON."""
         with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
             f.write("invalid json")
@@ -128,7 +128,7 @@ class TestCLI:
         finally:
             temp_path.unlink()
 
-    def test_cli_process_invalid_data_format(self):
+    def test_cli_process_invalid_data_format(self) -> None:
         """Test process command with invalid data format."""
         invalid_data = {"not": "a list"}
 
@@ -144,14 +144,14 @@ class TestCLI:
         finally:
             temp_path.unlink()
 
-    def test_cli_version(self):
+    def test_cli_version(self) -> None:
         """Test version option."""
         runner = CliRunner()
         result = runner.invoke(cli, ["--version"])
         assert result.exit_code == 0
         assert "version" in result.output.lower()
 
-    def test_cli_help(self):
+    def test_cli_help(self) -> None:
         """Test help option."""
         runner = CliRunner()
         result = runner.invoke(cli, ["--help"])

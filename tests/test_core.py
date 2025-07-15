@@ -14,7 +14,7 @@ from modern_python_template.core import (
 class TestDataModel:
     """Tests for the DataModel class."""
 
-    def test_valid_data_model(self):
+    def test_valid_data_model(self) -> None:
         """Test creating a valid DataModel."""
         model = DataModel(name="Test", value=42.5, tags=["tag1", "tag2"])
         assert model.name == "Test"
@@ -22,33 +22,33 @@ class TestDataModel:
         assert model.tags == ["tag1", "tag2"]
         assert model.metadata is None
 
-    def test_data_model_with_metadata(self):
+    def test_data_model_with_metadata(self) -> None:
         """Test creating a DataModel with metadata."""
         metadata = {"key": "value", "number": 123}
         model = DataModel(name="Test", value=42, metadata=metadata)
         assert model.metadata == metadata
 
-    def test_data_model_validation_empty_name(self):
+    def test_data_model_validation_empty_name(self) -> None:
         """Test that empty name raises ValidationError."""
         with pytest.raises(ValidationError):
             DataModel(name="", value=42)
 
-    def test_data_model_validation_negative_value(self):
+    def test_data_model_validation_negative_value(self) -> None:
         """Test that negative value raises ValidationError."""
         with pytest.raises(ValidationError):
             DataModel(name="Test", value=-1)
 
-    def test_data_model_validation_zero_value(self):
+    def test_data_model_validation_zero_value(self) -> None:
         """Test that zero value raises ValidationError."""
         with pytest.raises(ValidationError):
             DataModel(name="Test", value=0)
 
-    def test_data_model_str_representation(self):
+    def test_data_model_str_representation(self) -> None:
         """Test string representation of DataModel."""
         model = DataModel(name="Test", value=42)
         assert str(model) == "DataModel(name='Test', value=42)"
 
-    def test_data_model_whitespace_stripping(self):
+    def test_data_model_whitespace_stripping(self) -> None:
         """Test that whitespace is stripped from name."""
         model = DataModel(name="  Test  ", value=42)
         assert model.name == "Test"
@@ -57,27 +57,27 @@ class TestDataModel:
 class TestGreet:
     """Tests for the greet function."""
 
-    def test_greet_with_name(self):
+    def test_greet_with_name(self) -> None:
         """Test greeting with a specific name."""
         result = greet("Alice")
         assert result == "Hello, Alice!"
 
-    def test_greet_default(self):
+    def test_greet_default(self) -> None:
         """Test greeting with default name."""
         result = greet()
         assert result == "Hello, World!"
 
-    def test_greet_empty_string(self):
+    def test_greet_empty_string(self) -> None:
         """Test greeting with empty string."""
         result = greet("")
         assert result == "Hello, World!"
 
-    def test_greet_whitespace_only(self):
+    def test_greet_whitespace_only(self) -> None:
         """Test greeting with whitespace only."""
         result = greet("   ")
         assert result == "Hello, World!"
 
-    def test_greet_with_whitespace(self):
+    def test_greet_with_whitespace(self) -> None:
         """Test greeting with name containing whitespace."""
         result = greet("  Alice  ")
         assert result == "Hello, Alice!"
@@ -86,7 +86,7 @@ class TestGreet:
 class TestProcessData:
     """Tests for the process_data function."""
 
-    def test_process_data_valid(self, sample_data):
+    def test_process_data_valid(self, sample_data) -> None:
         """Test processing valid data."""
         result = process_data(sample_data)
         assert len(result) == 3
@@ -95,18 +95,18 @@ class TestProcessData:
         assert result[1].value == 23.5
         assert result[2].tags == ["important", "large"]
 
-    def test_process_data_empty_list(self):
+    def test_process_data_empty_list(self) -> None:
         """Test that empty list raises ValueError."""
         with pytest.raises(ValueError, match="Data cannot be empty"):
             process_data([])
 
-    def test_process_data_invalid_item(self):
+    def test_process_data_invalid_item(self) -> None:
         """Test that invalid item raises ValidationError."""
         invalid_data = [{"name": "Test", "value": -1}]  # negative value
         with pytest.raises(ValidationError):
             process_data(invalid_data)
 
-    def test_process_data_mixed_types(self):
+    def test_process_data_mixed_types(self) -> None:
         """Test processing data with mixed value types."""
         mixed_data = [
             {"name": "Int", "value": 42},
@@ -117,7 +117,7 @@ class TestProcessData:
         assert result[0].value == 42
         assert result[1].value == 3.14
 
-    def test_process_data_with_metadata(self):
+    def test_process_data_with_metadata(self) -> None:
         """Test processing data with metadata."""
         data_with_metadata = [
             {
@@ -134,7 +134,7 @@ class TestProcessData:
 class TestCalculateStatistics:
     """Tests for the calculate_statistics function."""
 
-    def test_calculate_statistics_valid_data(self, sample_data_models):
+    def test_calculate_statistics_valid_data(self, sample_data_models) -> None:
         """Test calculating statistics with valid data."""
         stats = calculate_statistics(sample_data_models)
 
@@ -144,7 +144,7 @@ class TestCalculateStatistics:
         assert stats["min"] == 23.5
         assert stats["max"] == 100
 
-    def test_calculate_statistics_empty_data(self):
+    def test_calculate_statistics_empty_data(self) -> None:
         """Test calculating statistics with empty data."""
         stats = calculate_statistics([])
 
@@ -158,7 +158,7 @@ class TestCalculateStatistics:
 
         assert stats == expected_stats
 
-    def test_calculate_statistics_single_item(self):
+    def test_calculate_statistics_single_item(self) -> None:
         """Test calculating statistics with single item."""
         single_item = [DataModel(name="Single", value=42)]
         stats = calculate_statistics(single_item)
