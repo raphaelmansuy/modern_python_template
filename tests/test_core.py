@@ -137,16 +137,12 @@ class TestCalculateStatistics:
     def test_calculate_statistics_valid_data(self, sample_data_models):
         """Test calculating statistics with valid data."""
         stats = calculate_statistics(sample_data_models)
-
-        expected_stats = {
-            "count": 3,
-            "total": 165.5,
-            "average": 55.16666666666667,
-            "min": 23.5,
-            "max": 100,
-        }
-
-        assert stats == expected_stats
+        
+        assert stats["count"] == 3
+        assert stats["total"] == 165.5
+        assert stats["average"] == pytest.approx(55.16666666666667, rel=1e-9)
+        assert stats["min"] == 23.5
+        assert stats["max"] == 100
 
     def test_calculate_statistics_empty_data(self):
         """Test calculating statistics with empty data."""

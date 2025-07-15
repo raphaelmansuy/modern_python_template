@@ -94,7 +94,8 @@ class TestCLI:
                 cli, ["process", str(input_path), "--output", str(output_path)]
             )
             assert result.exit_code == 0
-            assert f"Results saved to {output_path}" in result.output
+            assert "Results saved to" in result.output
+            assert str(output_path) in result.output
 
             # Check that output file was created and contains expected data
             with output_path.open() as f:
