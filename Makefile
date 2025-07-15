@@ -36,8 +36,14 @@ help: ## Show this help message
 	@echo "$(BOLD)$(CYAN)🛠️  Development:$(RESET)"
 	@awk 'BEGIN {FS = ":.*?## "} /^(dev|pre-commit|env|git).*:.*?## / {printf "  $(WHITE)%-20s$(RESET) %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 	@echo ""
+	@echo "$(BOLD)$(CYAN)⚡ Simple Commands:$(RESET)"
+	@awk 'BEGIN {FS = ":.*?## "} /^(init|run|hello|go|fix|up|info|deps|ready|start|work|ship).*:.*?## / {printf "  $(GREEN)%-20s$(RESET) %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+	@echo ""
+	@echo "$(BOLD)$(CYAN)🔤 Single Letter:$(RESET)"
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-z]:.*?## / {printf "  $(YELLOW)%-20s$(RESET) %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+	@echo ""
 	@echo "$(BOLD)$(BLUE)💡 Usage: $(GREEN)make <target>$(RESET)"
-	@echo "$(BOLD)$(BLUE)💡 Quick start: $(GREEN)make setup-dev$(RESET)"
+	@echo "$(BOLD)$(BLUE)💡 Quick start: $(GREEN)make init$(RESET) or $(GREEN)make start$(RESET)"
 
 # Setup and Installation
 install: ## Install project dependencies
@@ -242,3 +248,59 @@ help-lint: ## Show linting help
 	@echo "  format-check - Check formatting"
 	@echo "  type-check  - Run type checking"
 	@echo "  check       - Run all checks"
+
+# Simple Commands (Easy to remember aliases)
+init: setup-dev ## 🚀 Initialize project (alias for setup-dev)
+	@echo "$(BOLD)$(GREEN)🎉 Project initialized successfully!$(RESET)"
+
+run: ## 🏃 Run the demo
+	@echo "$(BOLD)$(BLUE)🏃 Running demo...$(RESET)"
+	@uv run modern-python-template demo
+
+hello: ## 👋 Say hello (test the CLI)
+	@echo "$(BOLD)$(BLUE)👋 Testing CLI...$(RESET)"
+	@uv run modern-python-template hello
+
+go: test ## 🏃 Quick test run (alias for test)
+	@echo "$(BOLD)$(GREEN)🏃 Quick test completed!$(RESET)"
+
+fix: lint-fix format ## 🔧 Fix all code issues (lint + format)
+	@echo "$(BOLD)$(GREEN)🔧 Code fixes applied!$(RESET)"
+
+up: update ## ⬆️ Update dependencies (alias for update)
+	@echo "$(BOLD)$(GREEN)⬆️ Dependencies updated!$(RESET)"
+
+info: env-info ## ℹ️ Show environment info (alias for env-info)
+
+deps: dev-deps ## 📋 Show dependencies (alias for dev-deps)
+
+ready: prod-check ## ✅ Check if ready for production (alias for prod-check)
+	@echo "$(BOLD)$(GREEN)✅ Production readiness check completed!$(RESET)"
+
+start: ## 🚀 Quick start development
+	@echo "$(BOLD)$(BLUE)🚀 Starting development environment...$(RESET)"
+	@$(MAKE) init
+	@$(MAKE) run
+	@echo "$(BOLD)$(GREEN)🎉 Development environment ready!$(RESET)"
+
+# Ultra-simple single letter commands
+t: test ## 🧪 Test (single letter)
+l: lint ## 🔍 Lint (single letter)  
+f: format ## 🎨 Format (single letter)
+c: clean ## 🧹 Clean (single letter)
+b: build ## 📦 Build (single letter)
+h: help ## ❓ Help (single letter)
+
+# Common workflow shortcuts
+work: ## 🔄 Common workflow: fix code, test, ready
+	@echo "$(BOLD)$(BLUE)🔄 Running common workflow...$(RESET)"
+	@$(MAKE) fix
+	@$(MAKE) test
+	@echo "$(BOLD)$(GREEN)🔄 Workflow completed!$(RESET)"
+
+ship: ## 🚢 Ship it: full check and build
+	@echo "$(BOLD)$(BLUE)🚢 Preparing to ship...$(RESET)"
+	@$(MAKE) check
+	@$(MAKE) test-cov
+	@$(MAKE) build
+	@echo "$(BOLD)$(GREEN)🚢 Ready to ship!$(RESET)"
